@@ -15,6 +15,7 @@ class HashTable {
     HashFunction* hashFunction;
     int ip_last_num;
     vector<int> primes;
+    bool debug;
 
     void fillPrimes(){
         //fill sufficient number of primes. These will be multiplied with
@@ -34,7 +35,9 @@ class HashTable {
     }
 
     void TransferDataWhileAdding(StorageNode* from, StorageNode* to, StorageNode* prev, int hashedKeyOfFromNode, int hashedKeyOfToNode, int hashedKeyOfPrevNode){
-        cout << "ADD " << from->GetName() << " " << hashedKeyOfFromNode << " " << to->GetName() << " " << hashedKeyOfToNode << " " << prev->GetName() << " " << hashedKeyOfPrevNode << endl;
+        if (debug){
+            cout << "ADD " << from->GetName() << " " << hashedKeyOfFromNode << " " << to->GetName() << " " << hashedKeyOfToNode << " " << prev->GetName() << " " << hashedKeyOfPrevNode << endl;
+        }
         map<int, set<int> > dataPoints = from->GetDataPoints();
         if(dataPoints.size()==0)
             return;
@@ -67,7 +70,9 @@ class HashTable {
     }
 
     void TransferDataWhileRemoving(StorageNode* from, StorageNode* to, StorageNode* prev, int hashedKeyOfFromNode, int hashedKeyOfToNode, int hashedKeyOfPrevNode){
-        cout << "REMOVE " << from->GetName() << " " << hashedKeyOfFromNode << " " << to->GetName() << " " << hashedKeyOfToNode << " " << prev->GetName() << " " << hashedKeyOfPrevNode << endl;
+        if (debug){
+            cout << "REMOVE " << from->GetName() << " " << hashedKeyOfFromNode << " " << to->GetName() << " " << hashedKeyOfToNode << " " << prev->GetName() << " " << hashedKeyOfPrevNode << endl;
+        }
         map<int, set<int> > dataPoints = from->GetDataPoints();
         if(dataPoints.size()==0)
             return;
@@ -101,11 +106,12 @@ class HashTable {
 
 
     public:
-        HashTable(int hashSpace, int virtualizationFactor, HashFunctionType hashFunctionType){
+        HashTable(int hashSpace, int virtualizationFactor, HashFunctionType hashFunctionType, bool debug){
             hashTable.clear();
             setOfNodes.clear();
             this->hashSpace = hashSpace;
             this->virtualizationFactor = virtualizationFactor;
+            this->debug = debug;
             //Factory method
             this->hashFunction = HashFunction::GetHashFunctionObject(hashFunctionType);
             ip_last_num = 0;

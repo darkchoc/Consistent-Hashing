@@ -8,7 +8,8 @@ int main(){
     int hashSpace=100, virtualizationFactor=1;
     HashFunctionType hashFunctionType = Default;
     string hashFunctionTypeString;
-    
+    bool debug = false;
+
     cout << "Enter hash space (between 100 and 10000): " << endl;
     cin >> hashSpace;
     cout << "Enter virtualization factor (between 1 and 10): " << endl;
@@ -25,10 +26,12 @@ int main(){
         cout << "Invalid Hash Function Type. Terminating!" << endl;
         return 0;
     }
+    cout << "Run in Debug mode? (1/0)" << endl;
+    cin >> debug;
     cin.ignore();
     
     //Create hash table
-    HashTable *ht = new HashTable(hashSpace, virtualizationFactor, hashFunctionType);
+    HashTable *ht = new HashTable(hashSpace, virtualizationFactor, hashFunctionType, debug);
  
     //Do operations
     string input;

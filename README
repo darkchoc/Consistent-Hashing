@@ -1,118 +1,17 @@
-To run: g++ driver.cpp
+This is a C++ implemention of Consistent Hashing.
 
-Sample Input 1:
+You need to specify the hash space (an integer between 100 and 10000), the virtualization factor (an integer between 1 and 10) which is basically the number of virtual instances of a node that will be spawned. Finally you need to mention the type of hash function to use (Default, Custom1, Custom2). If you want to create your own hashing functions, please do so in hash_functions.h
 
-PRINT
-100
-1
-Default
-ADD NODE nodeone <small letters only>
-ADD NODE nodetwo
-ADD DATA 1 <numbers only>
-ADD DATA 2
-ADD DATA 3
-ADD DATA 13
-PRINT
-ADD NODE nodethree
-PRINT
-ADD DATA 4
-ADD DATA 22
-PRINT
-ADD NODE nodefour
-ADD NODE nodefive
-ADD DATA 14
-ADD DATA 20
-PRINT
-REMOVE DATA 20
-REMOVE DATA 14
-PRINT
-REMOVE NODE nodethree
-PRINT
-REMOVE NODE nodefive
-REMOVE NODE nodeone
-PRINT
-REMOVE NODE nodetwo
-PRINT
+The hash function for hashing nodes and that for hashing data points is different. You need to implement both in case you plan to create your own custom hash function. 
 
+Once these inputs have been provided, you can continue to give further commands (mentioned below). Program will exit on being given an empty input. 
 
-Sample Input 2 ():
-100
-1
-Default
-ADD NODE nodetwo
-ADD DATA 1
-ADD DATA 2
-ADD DATA 3
-ADD DATA 13
-ADD DATA 22
-PRINT
-ADD NODE nodethree
+ADD NODE <nodename - only small letters>
+REMOVE NODE <nodename>
+ADD DATA <data - only integers>
+REMOVE DATA <data>
+PRINT 
 
+To compile: g++ driver.cpp
+To run: ./a.out
 
-Sample Input 3 (Testing case when deletion in 2 nodes and datapoint's hash = node's hash):
-100
-1
-Default
-ADD NODE nodeone
-ADD DATA 1
-ADD NODE nodetwo
-PRINT
-REMOVE NODE nodeone
-PRINT
-
-Sample Input 4:
-100
-3
-Default
-ADD NODE nodeone
-ADD DATA 1
-ADD DATA 3
-PRINT
-ADD NODE nodethree
-PRINT
-
-
-Sample Input 5:
-100
-3
-Default
-ADD NODE nodeone
-ADD DATA 1
-ADD DATA 3
-ADD NODE nodethree
-PRINT
-ADD DATA 2
-ADD DATA 4
-ADD DATA 5
-ADD DATA 6
-ADD DATA 7
-ADD DATA 8
-ADD DATA 9
-ADD DATA 10
-ADD DATA 11
-ADD DATA 12
-ADD DATA 13
-PRINT
-ADD NODE nodefive
-PRINT
-REMOVE NODE nodefive
-ADD NODE nodefour
-PRINT
-REMOVE NODE nodeone
-PRINT
-
-
-
-Sample Input 6: (Testing segmentation fault while removing node which had a collision while adding. Got corrected by
-adding a check whether a particular hashKey exists in table or not. We might have removed a node earlier, which 
-was causing collision while adding this second node, so when we are deleting this second node, we have to check whether
-hashKey exists in table or not, otherwise doing just hashTable[hashKey]==node will insert a node in hashTable for key =
-hashKey and node=NULL)
-100
-3
-Default
-ADD NODE nodeone
-ADD NODE nodethree
-ADD NODE nodefour
-REMOVE NODE nodeone
-REMOVE NODE nodefour
